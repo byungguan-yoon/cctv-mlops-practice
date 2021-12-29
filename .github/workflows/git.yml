@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "cctv-mlops-practice/src/data/data_collect/**"
+    # paths:
+    #   - "cctv-mlops-practice/src/data/data_collect/**"
       
 jobs:
   docker:
