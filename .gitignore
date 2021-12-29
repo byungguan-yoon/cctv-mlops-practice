@@ -3,3 +3,6 @@ tox.ini
 *.rst
 __init__.py
 make.bat
+*.png
+*.jpg
+*.pyc
