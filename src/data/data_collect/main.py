@@ -10,12 +10,13 @@ def main():
         while cam.webcam.isOpened():
             image = cam.capture_image()
             cv2.imshow('video', image)
-            crop_images = crop_image(image, save_mode=False)
+            crop_images = crop_image(image, save_mode=True)
             '''
             Send crop_images to inference docker
             '''
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+            print(crop_images)
             time.sleep(0.1)
     finally:
         cam.destroy_cam()
