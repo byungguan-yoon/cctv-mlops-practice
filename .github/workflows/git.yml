@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - "cctv-mlops-practice/src/data/data_collect/**"
+    paths:
+      - "src/data/data_collect/**"
       
 jobs:
   docker:
@@ -27,18 +27,6 @@ jobs:
           registry: 183.105.120.175:2224
           username: admin
           password: ${{ secrets.NEXUS_PASSWORD }}
-      -
-        name: check dir
-        run : |
-          echo `pwd`
-      -
-        name: change dir
-        run : |
-          cd src/data/data_collect
-      -
-        name: check dir2
-        run : |
-          echo `pwd`
       -
         name: Build docker image
         id: docker_build
