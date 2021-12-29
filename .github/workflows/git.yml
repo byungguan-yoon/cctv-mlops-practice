@@ -44,7 +44,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./src/data/data_collect/
           #push: true
           tags: |
             183.105.120.175:2224/data-collecting:latest
