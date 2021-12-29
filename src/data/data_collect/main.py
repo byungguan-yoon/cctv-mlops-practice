@@ -17,6 +17,7 @@ def main():
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             print(crop_images)
+            print("github action test")
             time.sleep(0.1)
     finally:
         cam.destroy_cam()
