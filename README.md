@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+Pull Request Test
+=======
 cctv-mlops-practice
 ==============================
 
@@ -55,3 +58,4 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+>>>>>>> fec6b94ba824bedaba03fc8495efb950cd9e7063
