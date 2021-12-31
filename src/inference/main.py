@@ -1,7 +1,6 @@
 import streamlit as st
 
 import numpy as np
-import torch
 from PIL import Image
 
 from ast import literal_eval
@@ -32,7 +31,6 @@ def main():
         max_sim_score = float(max_sim_score)
         st.image(image=image_origin, caption=f'similar score : {max_sim_score}')
 
-        # st.image(image=image_origin, caption=f'similar score : {max_sim_score}')
         if max_sim_score >= 0.98:
             st.balloons()
 
