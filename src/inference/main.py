@@ -5,11 +5,9 @@ import torch
 from PIL import Image
 
 from ast import literal_eval
-
 import requests
 
 from cnn_model import FaceModel
-from prepro import preprocess
 
 import sys
 import os
@@ -18,16 +16,10 @@ ImageEncoder = __import__("ImageEncoder")
 
 st.set_page_config(layout="wide")
 
-@st.cache
-def load_emp_feat() -> dict:
-    return np.load('./emp_emb_feat.npy')
-
 
 def main():
     if 'model' not in st.session_state:
         st.session_state.model = FaceModel()
-    if 'emp_feat' not in st.session_state:
-        st.session_state.emp_feat = load_emp_feat()
     
     image_uploaded = st.sidebar.file_uploader("Image Upload:", type=["png", "jpg", "jpeg"])
     if image_uploaded:
