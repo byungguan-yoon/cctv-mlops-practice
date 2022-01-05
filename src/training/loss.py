@@ -6,11 +6,9 @@ import math
 
 
 class FocalLoss(nn.Module):
-
     def __init__(self, gamma=0, eps=1e-7):
         super(FocalLoss, self).__init__()
         self.gamma = gamma
-        #print(self.gamma)
         self.eps = eps
         self.ce = torch.nn.CrossEntropyLoss(reduction="none")
 
@@ -27,14 +25,16 @@ class ArcFaceLoss(nn.modules.Module):
 
         self.weight = weight
         self.reduction = reduction
-        
+
         if crit == "focal":
             self.crit = FocalLoss(gamma=args.focal_loss_gamma)
         elif crit == "bce":
-            self.crit = nn.CrossEntropyLoss(reduction="none")   
+            self.crit = nn.CrossEntropyLoss(reduction="none")
 
         if s is None:
-            self.s = torch.nn.Parameter(torch.tensor([45.], requires_grad=True, device='cuda'))
+            self.s = torch.nn.Parameter(
+                torch.tensor([45.0], requires_grad=True, device="cuda")
+            )
         else:
             self.s = s
 
@@ -42,7 +42,7 @@ class ArcFaceLoss(nn.modules.Module):
         self.sin_m = math.sin(m)
         self.th = math.cos(math.pi - m)
         self.mm = math.sin(math.pi - m) * m
-        
+
     def forward(self, logits, labels):
 
         # logits = logits.float()
@@ -50,7 +50,7 @@ class ArcFaceLoss(nn.modules.Module):
         sine = torch.sqrt(1.0 - torch.pow(cosine, 2))
         phi = cosine * self.cos_m - sine * self.sin_m
         phi = torch.where(cosine > self.th, phi, cosine - self.mm)
-        
+
         labels2 = torch.zeros_like(cosine)
         labels2.scatter_(1, labels.view(-1, 1).long(), 1)
         output = (labels2 * phi) + ((1.0 - labels2) * cosine)
@@ -65,14 +65,14 @@ class ArcFaceLoss(nn.modules.Module):
 
             loss = loss * w
             ### human coding
-            class_weights_norm = 'batch'
+            class_weights_norm = "batch"
             if class_weights_norm == "batch":
                 loss = loss.sum() / w.sum()
             if class_weights_norm == "global":
                 loss = loss.mean()
             else:
                 loss = loss.mean()
-            
+
             return loss
         if self.reduction == "mean":
             loss = loss.mean()
@@ -82,21 +82,22 @@ class ArcFaceLoss(nn.modules.Module):
 
 
 def loss_fn(metric_crit, target_dict, output_dict, args, val=False):
-    
-    y_true = target_dict#['target']
-    y_pred = output_dict#['logits']
-    #ignore invalid classes for val loss
+
+    y_true = target_dict
+    y_pred = output_dict
+    # ignore invalid classes for val loss
     mask = y_true < args.n_classes
     if mask.sum() == 0:
-        return torch.zeros(1,  device = y_pred.device)
+        return torch.zeros(1, device=y_pred.device)
     loss = metric_crit(y_pred[mask], y_true[mask])
 
     return loss
 
+
 if __name__ == "__main__":
     crit = ArcFaceLoss(s=args.arcface_s, m=args.arcface_m, crit=args.crit)
 
-    sample_target = torch.randint(5, size=(32, ))
+    sample_target = torch.randint(5, size=(32,))
     sample_pred = torch.rand(32, 5)
     # loss = crit(sample_pred, sample_pred)
     loss = loss_fn(crit, sample_target, sample_pred, args)
