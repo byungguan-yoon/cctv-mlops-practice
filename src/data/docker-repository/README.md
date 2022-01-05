@@ -22,3 +22,11 @@ service docker restart
 ```
 docker login 183.105.120.175:2224
 ```
+### Docker Image Pull
+```
+docker pull busybox
+```
+### Docker Image Push
+```
+docker push 183.105.120.175:2224/busybox:v20200205
+```
