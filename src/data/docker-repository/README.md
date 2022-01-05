@@ -1,7 +1,9 @@
 ## Docker Image Repository(Nexus) 연결 방법
 
-### 환경 설정
+### 목적
+- 로컬에서 만든 도커 이미지를 저장소에 저장해 엣지 단에 배포할 때 사용 
 
+### 환경 설정
 ```
 # local terminal
 vim /etc/docker/daemon.json
