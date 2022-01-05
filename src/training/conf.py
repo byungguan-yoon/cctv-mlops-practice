@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import argparse
 
 
-parser = argparse.ArgumentParser(description='')
+parser = argparse.ArgumentParser(description="")
 
 parser.add_argument("-C", "--config", help="config filename")
 parser_args, _ = parser.parse_known_args(sys.argv)
