@@ -17,7 +17,7 @@ def main(interval, show_info):
             dt = (t2-t1).total_seconds()
             if dt > interval:
                 image = cam.capture_image()
-                image_path = path + '/'+ t2.strftime('%H_%M_%S') 
+                image_path = path + '/'+ t2.strftime('%H-%M-%S') 
                 cv2.imshow('video', image)
                 start = datetime.datetime.now()
                 crop_images = crop_image(image, image_path=image_path, save_mode=True)
