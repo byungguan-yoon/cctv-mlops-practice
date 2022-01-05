@@ -1,4 +1,4 @@
-## Docker Image Repository( 연결 방법
+## Docker Image Repository(Nexus) 연결 방법
 
 ### 환경 설정
 
