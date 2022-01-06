@@ -1,2 +1,2 @@
 ### airflow ui
-- http://192.168.0.44:8080/home
+- http://{edgepc ip address}:8080/home
