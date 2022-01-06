@@ -2,7 +2,7 @@
 
 ### 도커 이미지 빌드 및 실행
 ```
-docker build -t {tag_name}
+docker build -t {tag_name} .
 
 # cv2 imread를 위한 설정
 xhost local:root
