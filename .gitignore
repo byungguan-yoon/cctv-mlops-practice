@@ -8,3 +8,4 @@ make.bat
 *.pyc
 images
 __pycache__
+logs
