@@ -39,4 +39,4 @@ RUN cd /home/data_collect && \
 # RUN cd /home/data_collect && \
 #     python3 setup.py install
 
-ENTRYPOINT ["bash","/home/data_collect/start.sh"]
+ENTRYPOINT ["bash","/home/cctv-mlops-practice/src/data/data_collect/start.sh"]

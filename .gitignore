@@ -6,3 +6,6 @@ make.bat
 *.png
 *.jpg
 *.pyc
+images
+__pycache__
+logs
