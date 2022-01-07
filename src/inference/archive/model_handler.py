@@ -78,8 +78,10 @@ class ModelHandler(BaseHandler):
         self.initialized = True
 
     def _load_model(self, model_dir):
-        model = FaceModel()
-        model = self.model.load_from_checkpoint(os.path.join(model_dir, 'face_model.ckpt'))
+        # model = FaceModel()
+        model = torch.load(os.path.join(model_dir, 'face_model.pt'))
+        # model = model.load_from_checkpoint(os.path.join(model_dir, 'face_model.ckpt'))
+        # model = 
         return model.eval()
 
     def preprocess(self, data):
@@ -95,12 +97,6 @@ class ModelHandler(BaseHandler):
 
         img_array = Decode(bytes)
         image = album(img_array)
-        # d_img = base64.decodebytes(bytes)
-        # img_array = np.frombuffer(d_img, dtype=np.float32).reshape((80,320,3))
-        # image = np.resize(img_array, (320,320,3)) / 255.
-        # image = torch.from_numpy(image).pin_memory()
-        # image = torch.tensor(image, dtype=torch.float32).to(self.device, non_blocking=True)
-        # image = image.permute(2,0,1).unsqueeze(0).to(device='cuda', non_blocking=True)
         return image.to(device='cuda')
 
     def inference(self, model_input):
@@ -120,15 +116,8 @@ class ModelHandler(BaseHandler):
         :param inference_output: list of inference output
         :return: list of predict results
         """
-        sim_score = np.dot(self.emp_feat, inference_output.detach().numpy().T)
+        sim_score = np.dot(self.emp_feat, inference_output.detach().cpu().numpy().T)
         max_sim_score = sim_score.max()
-        # Take output from network and post-process to desired format
-        # masks = inference_output.squeeze().detach().cpu()
-        # masks = np.where(masks >= 0.9, 0, 1)
-        # pixels = np.count_nonzero(masks, axis=(1,2))
-        # pixels = np.count_nonzero(masks)
-        # results = pixels < 2
-        # results = results.tolist()
         return float(max_sim_score)
 
     async def main_async(self, input):
