@@ -1,9 +1,11 @@
 import cv2
 import datetime
 import os
-
 from face_detection import crop_image
 from camera import conn_cam
+
+sys.path.append(os.path.join(os.getcwd(), '../../Utils'))
+ImageEncoder = __import__("ImageEncoder")
 
 def main(interval, show_info):
     path = f"/home/cctv-mlops-practice/data/raw/{datetime.date.today()}"
@@ -22,9 +24,8 @@ def main(interval, show_info):
                 start = datetime.datetime.now()
                 crop_images = crop_image(image, image_path=image_path, save_mode=True)
                 finish = datetime.datetime.now()
-                '''
-                Send crop_images to inference service
-                '''
+                image_as_bytes = ImageEncoder.Encode(image)
+                response = requests.post('http://localhost:8090/predictions/face_model', data=image_as_bytes)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 
