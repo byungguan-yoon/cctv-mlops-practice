@@ -88,7 +88,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # RUN useradd -m model-server \
 #     && mkdir -p /home/model-server/tmp
 RUN mkdir -p /home/app/tmp
-RUN mkdir /home/app/model-store
+# RUN mkdir /home/app/model-store
 
 COPY --chown=root --from=compile-image /home/venv /home/venv
 
@@ -96,10 +96,10 @@ ENV PATH="/home/venv/bin:$PATH"
 
 COPY dockerd-entrypoint.sh /usr/local/bin/dockerd-entrypoint.sh
 
-RUN chmod +x /usr/local/bin/dockerd-entrypoint.sh
+# RUN chmod +x /usr/local/bin/dockerd-entrypoint.sh
     # && chown -R model-server /home/model-server
 
-COPY archive/config.properties /home/app/config.properties
+#COPY archive/config.properties /home/app/config.properties
 # RUN mkdir /home/app/model-store && chown -R model-server /home/app/model-store
 
 EXPOSE 8090 8091 8082 7070 7071

@@ -2,7 +2,7 @@
 opencv-python-headless==4.5.1.48
 segmentation_models_pytorch==0.2.1
 pytorch_lightning==1.4.5
-albumentation
+albumentations
 
 
 

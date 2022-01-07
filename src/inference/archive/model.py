@@ -1,4 +1,5 @@
 import timm
+import torch
 import torch.nn.functional as F
 from torch import nn
 
@@ -16,3 +17,14 @@ class FaceModel(nn.Module):
         output = self.model(x)
         output = self.normalize(output)
         return output
+
+    def save(self):
+        torch.save(self.model,'face_model.pt')
+
+    def load(self):
+        model = FaceModel()
+        model = torch.load('face_model.pt')
+
+if __name__ == '__main__':
+    a = FaceModel()
+    a.load()
